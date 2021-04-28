@@ -1,16 +1,22 @@
+<!------------------------------------------------------------------------->
+
 <template>
-  <header>
+  <header class="shadow">
     <Navbar />
   </header>
+
   <main>
     <router-view />
   </main>
+
   <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+    <div class="bg-dark text-light text-center p-2">
+      welcome fellow evildoer - what evil will you doer today?
     </div>
   </footer>
 </template>
+
+<!------------------------------------------------------------------------->
 
 <script>
 import { computed } from 'vue'
@@ -24,7 +30,12 @@ export default {
   }
 }
 </script>
+
+<!------------------------------------------------------------------------->
+
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
 </style>
+
+<!------------------------------------------------------------------------->

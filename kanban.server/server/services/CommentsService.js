@@ -7,6 +7,11 @@ class CommentsService {
     return comments
   }
 
+  async getComments(id) {
+    const comments = await dbContext.Comments.find({ taskId: id })
+    return comments
+  }
+
   async create(body) {
     return await dbContext.Comments.create(body)
   }

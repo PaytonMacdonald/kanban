@@ -1,4 +1,5 @@
 import { listsService } from '../services/ListsService'
+import { tasksService } from '../services/TasksService'
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 
@@ -9,6 +10,7 @@ export class ListsController extends BaseController {
     // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
+      .get('/:id/tasks', this.getTasks)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -18,6 +20,15 @@ export class ListsController extends BaseController {
     try {
       const lists = await listsService.getAll(req.query)
       res.send(lists)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getTasks(req, res, next) {
+    try {
+      const tasks = await tasksService.getTasks(req.params.id)
+      res.send(tasks)
     } catch (error) {
       next(error)
     }

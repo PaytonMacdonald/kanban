@@ -3,8 +3,13 @@ import { BadRequest } from '../utils/Errors'
 
 class BoardsService {
   async getAll(query = {}) {
-    const boards = await dbContext.Boards.find(query)// .populate('Board') <<< this would be for list
+    const boards = await dbContext.Boards.find(query)
     return boards
+  }
+
+  async getById(id) {
+    const board = await dbContext.Boards.findOne({ _id: id })
+    return board
   }
 
   async create(body) {

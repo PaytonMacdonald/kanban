@@ -7,6 +7,11 @@ class ListsService {
     return lists
   }
 
+  async getLists(id) {
+    const lists = await dbContext.Lists.find({ boardId: id })
+    return lists
+  }
+
   async create(body) {
     return await dbContext.Lists.create(body)
   }

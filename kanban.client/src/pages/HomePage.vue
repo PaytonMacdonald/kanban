@@ -1,9 +1,11 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1>
+    <img src="../assets/img/ed-logo.png" alt="EvilDoer Logo">
+    <router-link :to="{ name: 'Boards' }" class="nav-link" v-if="state.user.isAuthenticated">
+      <button type="button" class="btn btn-primary">
+        Go to Your Boards
+      </button>
+    </router-link>
   </div>
 </template>
 
@@ -18,8 +20,7 @@ export default {
   text-align: center;
   user-select: none;
   > img{
-    height: 200px;
-    width: 200px;
+    width: 800px;
   }
 }
 </style>

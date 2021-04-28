@@ -7,6 +7,11 @@ class TasksService {
     return tasks
   }
 
+  async getTasks(id) {
+    const tasks = await dbContext.Tasks.find({ listId: id })
+    return tasks
+  }
+
   async create(body) {
     return await dbContext.Tasks.create(body)
   }
