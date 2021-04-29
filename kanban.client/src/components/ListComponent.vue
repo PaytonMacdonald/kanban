@@ -2,27 +2,27 @@
 
 <template>
   <!-- TODO lists need a form to add tasks -->
-  <div class="col-md-3">
-    <div class="card p-3 mb-5 bg-secondary">
+  <div class="col-md-4">
+    <div class="card p-2 mb-5 bg-secondary">
       <div class="row">
         <div class="col">
-          <h4 class="text-white">
+          <h2 class="text-white mb-2">
             {{ listProp.title }}
-            <form @submit.prevent="createTask">
-              <div class="form-row align-items-center">
-                <div class="col-auto">
-                  <label class="sr-only" for="inlineFormInput">New Task</label>
-                  <input type="text" class="form-control" id="inlineFormInput" placeholder="Add New Task" v-model="state.newTask.title">
-                </div>
-                <div class="col-auto">
-                  <button type="submit" class="btn btn-primary">
-                    +
-                  </button>
-                </div>
+          </h2>
+          <form class="mb-3" @submit.prevent="createTask">
+            <div class="form-row align-items-center">
+              <div class="col-auto">
+                <label class="sr-only" for="inlineFormInput">New Task</label>
+                <input type="text" class="form-control" id="inlineFormInput" placeholder="Add New Task" v-model="state.newTask.title">
               </div>
-            </form>
-          </h4>
-          <button type="button" class="btn btn-primary" @click="deleteList(listProp.id)">
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary" title="click to add a task">
+                  +
+                </button>
+              </div>
+            </div>
+          </form>
+          <button type="button" class="btn btn-primary" @click="deleteList(listProp.id)" title="click to delete list">
             delete
           </button>
         </div>
@@ -72,14 +72,14 @@ export default {
           await tasksService.createTask(state.newTask)
           state.newTask = {}
           await tasksService.getAllTasks(props.listProp.id)
-          Notification.toast('Task Created!!!!!!!!!!!!!!!!!!!', 'success')
+          Notification.toast('Task Created!', 'success')
         } catch (error) {
           Notification.toast('Error: ' + error, 'error')
         }
       },
       async deleteList(id) {
         try {
-          if (await Notification.confirmAction('what are you DOING!?')) {
+          if (await Notification.confirmAction('Are you sure you want to delete this list?')) {
             await listsService.deleteList(id)
             await listsService.getAllLists(props.listProp.boardId)
             Notification.toast('List Deleted', 'success')
@@ -98,8 +98,11 @@ export default {
 
 <!------------------------------------------------------------>
 
-<style>
-
+<style scoped>
+h2{
+  font-size: 2.5rem;
+  font-family: 'Cinzel', serif;
+  }
 </style>
 
 <!------------------------------------------------------------>

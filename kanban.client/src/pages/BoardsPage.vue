@@ -2,9 +2,16 @@
 
 <template>
   <div class="container-fluid">
+    <div class="row">
+      <div class="col text-center text-primary my-5">
+        <h1 class="">
+          Making Any Evil Plans?
+        </h1>
+        <img src="../assets/img/super-evil-line.png" alt="EvilDoer Logo" title="fancy title line for header one">
+      </div>
+    </div>
     <div class="row mb-5 mr-3">
-      <div class="col">
-        <br>
+      <div class="col d-flex justify-content-center">
         <!-- ADD NEW BOARD (go get a bootstrap) @submit.prevent=""-->
         <form @submit.prevent="createBoard">
           <div class="form-row align-items-center">
@@ -17,8 +24,8 @@
                      v-model="state.newBoard.title"
               >
             </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">
+            <div class="col">
+              <button type="submit" class="btn btn-primary" title="click to add new board">
                 +
               </button>
             </div>
@@ -28,9 +35,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        <BoardComponent v-for="board in state.boards" :key="board.id" :board-prop="board" />
-      </div>
+      <BoardComponent v-for="board in state.boards" :key="board.id" :board-prop="board" />
     </div>
   </div>
 </template>
@@ -82,7 +87,15 @@ export default {
 
 <!--sssssssssssssssssssssssssssssssssssssssssssssssssssssss-->
 
-<style>
+<style scoped>
+h1{
+    font-size: 3.25rem;
+  font-family: 'Cinzel', serif;
+}
+img{
+  max-width: 90vw;
+  display: center;
+}
 
 </style>
 

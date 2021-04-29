@@ -6,6 +6,7 @@
           alt="logo"
           src="../assets/img/ed-logo.png"
           height="45"
+          title="logo click to go to home"
         />
       </div>
     </router-link>
@@ -32,7 +33,7 @@
             About
           </router-link>
         </li> -->
-        <li class="nav-item">
+        <li class="nav-item" title="navbar link go to your boards page">
           <router-link :to="{ name: 'Boards' }" class="nav-link">
             Boards
           </router-link>
@@ -48,14 +49,16 @@
           class="btn btn-outline-primary text-uppercase"
           @click="login"
           v-if="!user.isAuthenticated"
+          title="click to login"
         >
           Login
         </button>
 
-        <div class="dropdown" v-else>
+        <div class="add-pointer dropdown" v-else>
           <div
             class="dropdown-toggle"
             @click="state.dropOpen = !state.dropOpen"
+            title="your profile click for more options"
           >
             <img
               :src="user.picture"
@@ -70,7 +73,7 @@
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
           >
-            <router-link :to="{ name: 'Account' }">
+            <router-link :to="{ name: 'Account' }" title="go to your account">
               <div class="list-group-item list-group-item-action hoverable">
                 Account
               </div>
@@ -78,6 +81,7 @@
             <div
               class="list-group-item list-group-item-action hoverable"
               @click="logout"
+              title="click to logout"
             >
               logout
             </div>

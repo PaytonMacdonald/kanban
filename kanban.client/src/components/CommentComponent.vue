@@ -3,16 +3,13 @@
 <template>
   <div class="row">
     <div class="col">
-      <div class="card my-4 p-1">
-        <div class="row">
-          <div class="col">
-            <img :src="commentProp.creator.picture" :alt="commentProp.creator.name" :title="commentProp.creator.name">
-            <span>{{ commentProp.title }}</span>
-          </div>
-          <div class="col-1">
-            <button type="button" class="btn btn-primary" @click="deleteComment(commentProp.id)">
-              x
-            </button>
+      <div class="card my-3">
+        <div class="card-body">
+          <p class="card-text">
+            <img class="rounded-circle mr-2" :src="commentProp.creator.picture" :alt="commentProp.creator.name" :title="commentProp.creator.name"> {{ commentProp.title }}
+          </p>
+          <div class="text-right">
+            <a href="#" class="card-link" @click.prevent="deleteComment(commentProp.id)" title="click to delete this comment">delete</a>
           </div>
         </div>
       </div>
@@ -50,7 +47,7 @@ export default {
       state,
       async deleteComment(id) {
         try {
-          if (await Notification.confirmAction('what are you DOING!?')) {
+          if (await Notification.confirmAction('Are you sure you want to delete this comment?')) {
             await commentsService.deleteComment(id)
             await commentsService.getAllComments(props.commentProp.taskId)
             Notification.toast('Comment Deleted', 'success')
@@ -69,6 +66,10 @@ export default {
 <style scoped>
 img{
   width: 2rem
+}
+.bottom-line{
+  border-top-width: 1rem;
+  border-top-color: gray;
 }
 </style>
 
