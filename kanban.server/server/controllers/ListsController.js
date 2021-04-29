@@ -9,25 +9,15 @@ export class ListsController extends BaseController {
     this.router
     // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
       .get('/:id/tasks', this.getTasks)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
   }
 
-  async getAll(req, res, next) {
-    try {
-      const lists = await listsService.getAll(req.query)
-      res.send(lists)
-    } catch (error) {
-      next(error)
-    }
-  }
-
   async getTasks(req, res, next) {
     try {
-      const tasks = await tasksService.getTasks(req.params.id)
+      const tasks = await tasksService.getTasks({ creatorId: req.userInfo.id, listId: req.params.id })
       res.send(tasks)
     } catch (error) {
       next(error)
@@ -55,9 +45,10 @@ export class ListsController extends BaseController {
     }
   }
 
+  // UPDATE OTHERS
   async delete(req, res, next) {
     try {
-      const lists = await listsService.delete(req.params.id)
+      const lists = await listsService.delete(req.params.id, req.userInfo.id)
       return res.send(lists)
     } catch (error) {
       next(error)

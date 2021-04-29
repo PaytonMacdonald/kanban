@@ -9,7 +9,7 @@ export class BoardsController extends BaseController {
     this.router
     // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
+      .get('', this.getAll) // KEEP THIS
       .get('/:id', this.getById)
       .get('/:id/lists', this.getLists)
       .post('', this.create)
@@ -19,7 +19,7 @@ export class BoardsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      const boards = await boardsService.getAll(req.query)
+      const boards = await boardsService.getAll({ creatorId: req.userInfo.id }) // implement on other controlers
       res.send(boards)
     } catch (error) {
       next(error)
@@ -28,7 +28,7 @@ export class BoardsController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      const board = await boardsService.getById(req.params.id)
+      const board = await boardsService.getById({ creatorId: req.userInfo.id, _id: req.params.id })
       res.send(board)
     } catch (error) {
       next(error)
@@ -37,7 +37,7 @@ export class BoardsController extends BaseController {
 
   async getLists(req, res, next) {
     try {
-      const lists = await listsService.getLists(req.params.id)
+      const lists = await listsService.getLists({ creatorId: req.userInfo.id, boardId: req.params.id })
       res.send(lists)
     } catch (error) {
       next(error)
@@ -67,7 +67,7 @@ export class BoardsController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      const boards = await boardsService.delete(req.params.id)
+      const boards = await boardsService.delete(req.params.id, req.userInfo.id)
       return res.send(boards)
     } catch (error) {
       next(error)

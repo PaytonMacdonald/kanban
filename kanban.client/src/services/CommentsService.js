@@ -5,7 +5,15 @@ import { api } from './AxiosService'
 class CommentsService {
   async getAllComments(id) {
     const res = await api.get(`api/tasks/${id}/comments`)
-    AppState.comments = res.data // implement dictionary instead (or push)
+    AppState.comments[id] = res.data
+  }
+
+  async createComment(data) {
+    await api.post('api/comments', data)
+  }
+
+  async deleteComment(id) {
+    await api.delete('api/comments/' + id)
   }
 }
 

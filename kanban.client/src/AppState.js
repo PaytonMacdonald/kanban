@@ -6,8 +6,9 @@ export const AppState = reactive({
   account: {},
   // ////////// //
   boards: [],
-  activeBoard: {}, // NOTE null or {}???
+  activeBoard: {},
   lists: [],
-  tasks: [], // TODO convert to dictionary {}
-  comments: [] // TODO convert to dictionary {} or make it a subdoc to tasks and remove it
+  // ///////// //
+  tasks: {},
+  comments: {}
 })

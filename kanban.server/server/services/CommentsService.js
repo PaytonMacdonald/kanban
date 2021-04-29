@@ -2,13 +2,8 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
 
 class CommentsService {
-  async getAll(query = {}) {
-    const comments = await dbContext.Comments.find(query).populate('Task')
-    return comments
-  }
-
-  async getComments(id) {
-    const comments = await dbContext.Comments.find({ taskId: id })
+  async getComments(query) {
+    const comments = await dbContext.Comments.find(query)
     return comments
   }
 
@@ -24,8 +19,8 @@ class CommentsService {
     return comments
   }
 
-  async delete(id) {
-    const comments = await dbContext.Comments.findOneAndDelete({ _id: id })
+  async delete(id, creatorId) {
+    const comments = await dbContext.Comments.findOneAndDelete({ _id: id, creatorId })
     if (!comments) {
       throw new BadRequest('Invalid Id')
     }

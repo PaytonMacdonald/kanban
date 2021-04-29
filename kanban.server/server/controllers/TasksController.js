@@ -9,25 +9,15 @@ export class TasksController extends BaseController {
     this.router
     // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
       .get('/:id/comments', this.getComments)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
   }
 
-  async getAll(req, res, next) {
-    try {
-      const tasks = await tasksService.getAll(req.query)
-      res.send(tasks)
-    } catch (error) {
-      next(error)
-    }
-  }
-
   async getComments(req, res, next) {
     try {
-      const comments = await commentsService.getComments(req.params.id)
+      const comments = await commentsService.getComments({ creatorId: req.userInfo.id, taskId: req.params.id })
       res.send(comments)
     } catch (error) {
       next(error)
@@ -57,7 +47,7 @@ export class TasksController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      const tasks = await tasksService.delete(req.params.id)
+      const tasks = await tasksService.delete(req.params.id, req.userInfo.id)
       return res.send(tasks)
     } catch (error) {
       next(error)

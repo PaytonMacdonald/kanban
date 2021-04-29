@@ -3,8 +3,11 @@
 <template>
   <div class="row">
     <div class="col">
-      <div class="card p-1">
+      <div class="card m-2 p-1">
         <span>{{ commentProp.title }}</span>
+        <button type="button" class="btn btn-primary" @click="deleteComment(commentProp.id)">
+          delete
+        </button>
       </div>
     </div>
   </div>
@@ -37,7 +40,18 @@ export default {
       }
     })
     return {
-      state
+      state,
+      async deleteComment(id) {
+        try {
+          if (await Notification.confirmAction('what are you DOING!?')) {
+            await commentsService.deleteComment(id)
+            await commentsService.getAllComments(props.commentProp.taskId)
+            Notification.toast('Comment Deleted', 'success')
+          }
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
+      }
     }
   }
 }

@@ -2,13 +2,8 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
 
 class TasksService {
-  async getAll(query = {}) {
-    const tasks = await dbContext.Tasks.find(query).populate('List')
-    return tasks
-  }
-
-  async getTasks(id) {
-    const tasks = await dbContext.Tasks.find({ listId: id })
+  async getTasks(query) {
+    const tasks = await dbContext.Tasks.find(query)
     return tasks
   }
 
@@ -24,8 +19,8 @@ class TasksService {
     return tasks
   }
 
-  async delete(id) {
-    const tasks = await dbContext.Tasks.findOneAndDelete({ _id: id })
+  async delete(id, creatorId) {
+    const tasks = await dbContext.Tasks.findOneAndDelete({ _id: id, creatorId })
     if (!tasks) {
       throw new BadRequest('Invalid Id')
     }

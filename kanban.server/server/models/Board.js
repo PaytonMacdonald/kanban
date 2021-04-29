@@ -7,6 +7,7 @@ const Board = new Schema(
     creatorId: { type: String, ref: 'Account', required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
+
 )
 
 Board.virtual('creator', {

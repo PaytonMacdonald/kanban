@@ -1,7 +1,7 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <img src="../assets/img/ed-logo.png" alt="EvilDoer Logo">
-    <router-link :to="{ name: 'Boards' }" class="nav-link" v-if="state.user.isAuthenticated">
+    <router-link :to="{ name: 'Boards' }" class="nav-link">
       <button type="button" class="btn btn-primary">
         Go to Your Boards
       </button>

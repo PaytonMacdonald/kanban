@@ -4,22 +4,31 @@
   <div class="container-fluid">
     <div class="row mb-5 mr-3">
       <div class="col">
-        <span>first row</span>
         <br>
         <!-- ADD NEW BOARD (go get a bootstrap) @submit.prevent=""-->
-        <form action="">
-          <label class="mr-3" for="">ADD A NEW BOARD</label>
-          <input class="mr-3" type="text" name="newBoard" id="newBoard"> <!--board state.title inputed here-->
-          <button type="submit">
-            +
-          </button>
+        <form @submit.prevent="createBoard">
+          <div class="form-row align-items-center">
+            <div class="col-auto">
+              <label class="sr-only" for="inlineFormInput">Add New Board</label>
+              <input type="text"
+                     class="form-control"
+                     id="inlineFormInput"
+                     placeholder="Add New Board"
+                     v-model="state.newBoard.title"
+              >
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">
+                +
+              </button>
+            </div>
+          </div>
         </form>
         <!-- ----- -->
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <span>second row</span>
         <BoardComponent v-for="board in state.boards" :key="board.id" :board-prop="board" />
       </div>
     </div>
@@ -40,7 +49,8 @@ export default {
 
   setup() {
     const state = reactive({
-      boards: computed(() => AppState.boards)
+      boards: computed(() => AppState.boards),
+      newBoard: {}
     })
     onMounted(async() => {
       try {
@@ -50,14 +60,17 @@ export default {
       }
     })
     return {
-      state
-      // async getAllBoards() {
-      //   try {
-      //     await boardsService.getAllBoards()
-      //     Notification.toast('Boards Rendered', 'success')
-      //   } catch (error) {
-      //     Notification.toast('Error: ' + error, 'error')
-      //   }
+      state,
+      async createBoard() {
+        try {
+          await boardsService.createBoard(state.newBoard)
+          state.newBoard = {}
+          await boardsService.getAllBoards()
+          Notification.toast('Board Created!!!!!!!!!!!!!!!!!!!', 'success')
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
+      }
     }
   },
   components: {
