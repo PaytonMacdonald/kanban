@@ -3,7 +3,7 @@ import { BadRequest } from '../utils/Errors'
 
 class CommentsService {
   async getComments(query) {
-    const comments = await dbContext.Comments.find(query)
+    const comments = await dbContext.Comments.find(query).populate('creator', 'name picture')
     return comments
   }
 

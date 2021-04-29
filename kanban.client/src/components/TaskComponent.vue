@@ -10,6 +10,21 @@
             <button type="button" class="btn btn-primary" @click="deleteTask(taskProp.id)">
               delete
             </button>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+              >
+                Move Task
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#" v-for="list in state.lists" :key="list.id" @click.prevent="moveTask(list.id)">{{ list.title }}</a>
+              </div>
+            </div>
+            <!-- MOVE TASK DROP DOWN FORM -->
           </h6>
           <CommentComponent v-for="comment in state.comments" :key="comment.id" :comment-prop="comment" />
           <div class="row">
@@ -58,6 +73,7 @@ export default {
   setup(props) {
     const state = reactive({
       comments: computed(() => AppState.comments[props.taskProp.id]),
+      lists: computed(() => AppState.lists.filter(l => l.id !== props.taskProp.listId)),
       newComment: {}
     })
     onMounted(async() => {
@@ -90,7 +106,17 @@ export default {
         } catch (error) {
           Notification.toast('Error: ' + error, 'error')
         }
+      },
+      // MOVE TASK FUNCTION ////
+      async moveTask(listId) {
+        try {
+          await tasksService.moveTask(listId, props.taskProp)
+          Notification.toast('Task Moved!', 'success')
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
       }
+      // ///////////////// //
     }
   },
   components: {

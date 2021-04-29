@@ -3,11 +3,18 @@
 <template>
   <div class="row">
     <div class="col">
-      <div class="card m-2 p-1">
-        <span>{{ commentProp.title }}</span>
-        <button type="button" class="btn btn-primary" @click="deleteComment(commentProp.id)">
-          delete
-        </button>
+      <div class="card my-4 p-1">
+        <div class="row">
+          <div class="col">
+            <img :src="commentProp.creator.picture" :alt="commentProp.creator.name" :title="commentProp.creator.name">
+            <span>{{ commentProp.title }}</span>
+          </div>
+          <div class="col-1">
+            <button type="button" class="btn btn-primary" @click="deleteComment(commentProp.id)">
+              x
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -59,8 +66,10 @@ export default {
 
 <!------------------------------------------------------------>
 
-<style>
-
+<style scoped>
+img{
+  width: 2rem
+}
 </style>
 
 <!------------------------------------------------------------>
