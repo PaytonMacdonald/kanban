@@ -7,7 +7,7 @@ export class TasksController extends BaseController {
   constructor() {
     super('api/tasks')
     this.router
-    // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
+      // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/:id/comments', this.getComments)
       .post('', this.create)
@@ -23,7 +23,7 @@ export class TasksController extends BaseController {
       next(error)
     }
   }
-
+  //IF THE CREATOR ID MATCHES THE USER ID, CREATE THIS BOARD AND DRAW IT TO THE USER'S PROFILE WITH THEIR NAME ATTACHED TO IT
   async create(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
@@ -33,6 +33,7 @@ export class TasksController extends BaseController {
       next(error)
     }
   }
+  //IF THE CREATOR ID MATCHES THE USER ID, ALLOW THEM TO EDIT
 
   async edit(req, res, next) {
     try {
@@ -44,7 +45,7 @@ export class TasksController extends BaseController {
       next(error)
     }
   }
-
+  //IF THE CREATOR ID MATCHES THE USER ID, ALLOW THEM TO DELETE THEIR OWN STUFF
   async delete(req, res, next) {
     try {
       const tasks = await tasksService.delete(req.params.id, req.userInfo.id)

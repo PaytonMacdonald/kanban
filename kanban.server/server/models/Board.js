@@ -9,7 +9,7 @@ const Board = new Schema(
   { timestamps: true, toJSON: { virtuals: true } }
 
 )
-
+//MAGIC
 Board.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',

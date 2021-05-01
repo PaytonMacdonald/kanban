@@ -10,7 +10,7 @@ const Comment = new Schema(
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
-
+//MAGIC
 Comment.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',

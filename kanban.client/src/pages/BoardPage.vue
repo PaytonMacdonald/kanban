@@ -44,6 +44,8 @@ import Notification from '../utils/Notification'
 import { useRoute } from 'vue-router'
 import ListComponent from '../components/ListComponent'
 import { listsService } from '../services/ListsService'
+//<------------------------------------------------------------>
+//WRITE EXPORT DEFAULT, SETUP, ONMOUNTED, AND ASYNC CREATELIST HERE
 
 export default {
   name: 'Board',
@@ -55,9 +57,10 @@ export default {
       lists: computed(() => AppState.lists),
       newList: {}
     })
+    //onMounted records any properties “touched” during the component’s render as dependencies. Later on when a dependency’s getter is triggered, it notifies the watcher, which in turn causes the component to re-render.
     onMounted(async() => {
       try {
-        await boardsService.getBoardById(route.params.id)
+        await boardsService.getBoardById(route.params.id) 
         await listsService.getAllLists(route.params.id)
       } catch (error) {
         Notification.toast('Error:' + error, 'error')

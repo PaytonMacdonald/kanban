@@ -40,8 +40,7 @@ import Notification from '../utils/Notification'
 import { tasksService } from '../services/TasksService'
 import { listsService } from '../services/ListsService'
 import TaskComponent from '../components/TaskComponent'
-
-// import { useRoute } from 'vue-router'
+// <---------------------------------------------------------->
 
 export default {
   name: 'List',
@@ -52,7 +51,6 @@ export default {
     }
   },
   setup(props) {
-    // const route = useRoute()
     const state = reactive({
       tasks: computed(() => AppState.tasks[props.listProp.id]),
       newTask: {}

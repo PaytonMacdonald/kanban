@@ -35,6 +35,7 @@
       </div>
     </div>
     <div class="row">
+      <!-- V-FORS ARE VUE FOR LOOPS, V-IFS ARE VUE IF STATEMENTS -->
       <BoardComponent v-for="board in state.boards" :key="board.id" :board-prop="board" />
     </div>
   </div>
