@@ -16,7 +16,8 @@ export class BoardsController extends BaseController {
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
   }
-  //<--------------------------------GET, POST, PUT, DELETE FUNCTIONS GO HERE----------------------------------------->
+
+  // <--------------------------------GET, POST, PUT, DELETE FUNCTIONS GO HERE----------------------------------------->
   async getAll(req, res, next) {
     try {
       const boards = await boardsService.getAll({ creatorId: req.userInfo.id }) // implement on other controlers
@@ -25,7 +26,8 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
-  //GET A BOARD WITH A SPECIFIC CREATOR ID/BOARD ID AND DRAW IT TO THE PAGE
+
+  // GET A BOARD WITH A SPECIFIC CREATOR ID/BOARD ID AND DRAW IT TO THE PAGE
   async getById(req, res, next) {
     try {
       const board = await boardsService.getById({ creatorId: req.userInfo.id, _id: req.params.id })
@@ -34,7 +36,8 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
-  //GO TO LISTSSERVICE, GET THE LISTS WITH A SPECIFIC CREATOR ID AND BOARD ID
+
+  // GO TO LISTSSERVICE, GET THE LISTS WITH A SPECIFIC CREATOR ID AND BOARD ID
   async getLists(req, res, next) {
     try {
       const lists = await listsService.getLists({ creatorId: req.userInfo.id, boardId: req.params.id })
@@ -43,7 +46,8 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
-  //IF THE CREATOR ID MATCHES THE USER ID, CREATE THIS BOARD AND DRAW IT TO THE USER'S PROFILE WITH THEIR NAME ATTACHED TO IT
+
+  // IF THE CREATOR ID MATCHES THE USER ID, CREATE THIS BOARD AND DRAW IT TO THE USER'S PROFILE WITH THEIR NAME ATTACHED TO IT
   async create(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
@@ -53,7 +57,8 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
-  //IF THE CREATOR ID MATCHES THE USER ID, ALLOW THEM TO EDIT
+
+  // IF THE CREATOR ID MATCHES THE USER ID, ALLOW THEM TO EDIT
   async edit(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
@@ -64,7 +69,8 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
-  //IF THE CREATOR ID MATCHES THE USER ID, ALLOW THEM TO DELETE THEIR OWN STUFF
+
+  // IF THE CREATOR ID MATCHES THE USER ID, ALLOW THEM TO DELETE THEIR OWN STUFF
   async delete(req, res, next) {
     try {
       const boards = await boardsService.delete(req.params.id, req.userInfo.id)
